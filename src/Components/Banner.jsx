@@ -8,7 +8,7 @@ const Banner = () => {
     <div
       style={{
         backgroundImage:
-          "url(/public/overlay.png), url(/public/poor-winter.jpeg) ",
+          "url(/public/overlay.png), url(/public/poor-winter.png) ",
         backgroundSize: "cover",
         backgroundPosition: "center",
         
