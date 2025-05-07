@@ -1,22 +1,31 @@
-import React, { createContext } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import app from "../../firebase.init";
 
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
+
+    const [campaigns, setCampaigns] = useState([])
    
 
+    useEffect(()=>{
+        fetch("./campaigns.json")
+        .then(res=> res.json())
+        .then(data => setCampaigns(data))
+
+    }, [])
 
 
 
-    const user = {
-        name: "Aminur"
+
+    const authInfo = {
+        campaigns,
     }
 
 
 
   return( 
-  <AuthContext.Provider value={user}>
+  <AuthContext.Provider value={authInfo}>
     {children}
 </AuthContext.Provider>)
 };

@@ -7,6 +7,7 @@ import Error from "../Pages/Error";
 import AuthLayout from "../Layouts/AuthLayout";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
+import Campains from "../Pages/Campains";
 
 
     const router = createBrowserRouter([
@@ -29,6 +30,10 @@ import Register from "../Pages/Register";
                     element: <Register></Register>
                 },
             ]
+        },
+        {
+            path:"campaigns",
+            element: <Campains></Campains>
         }
       ]);
 

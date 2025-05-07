@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "title": "Winter Warmth for Rangpur",
+        "image": "https://i.ibb.co.com/V02DpfzT/rangpur-donation.jpg",
+        "description": "Collecting warm clothes for underprivileged families in Rangpur. Help us reach 500 families this season.",
+        "status": "active",
+        "contactInfo": "rangpurhelp@donate.org | +8801711001122",
+        "division": "Rangpur"
+    },
+    {
+        "id": 2,
+        "title": "Blanket Drive Chattogram",
+        "image": "https://i.ibb.co.com/GQwsQSLS/suffuring.jpg",
+        "description": "Join our blanket donation drive to support slum areas in Chattogram with essential winter items.",
+        "status": "active",
+        "contactInfo": "ctgblanket@donate.org | +8801877553311",
+        "division": "Chattogram"
+    },
+    {
+        "id": 3,
+        "title": "Sylhet Hill Support Campaign",
+        "image": "https://i.ibb.co.com/KjM4tpsN/winter.jpg",
+        "description": "Distributing jackets and socks to children in remote hill areas of Sylhet.",
+        "status": "completed",
+        "contactInfo": "sylhetoutreach@donate.org | +8801999887766",
+        "division": "Sylhet"
+    },
+    {
+        "id": 4,
+        "title": "Dhaka City Coat Collection",
+        "image": "https://i.ibb.co.com/rGLLyzN1/poor-winter.jpg",
+        "description": "Urban-based drive focusing on collecting coats for street dwellers in Dhaka during peak winter.",
+        "status": "active",
+        "contactInfo": "dhakacare@donate.org | +8801300223344",
+        "division": "Dhaka"
+    }
+]
