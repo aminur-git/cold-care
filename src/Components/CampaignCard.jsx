@@ -1,8 +1,11 @@
 import { MdContactMail } from "react-icons/md";
+import { Link } from "react-router";
 
 const CampaignCard = ({ campaign }) => {
   console.log(campaign);
-  const { title, image, description, status, contactInfo, division } = campaign;
+  const { id, title, image, description, status, contactInfo, division } = campaign;
+
+ 
 
   return (
     <div>
@@ -43,7 +46,7 @@ const CampaignCard = ({ campaign }) => {
           <div className="mt-4 flex items-center justify-between">
             <div className="flex items-center">
               {status === "active" ? (
-                <button className="btn btn-info  text-white">Donate</button>
+                <Link to={`/donate/${id}`}><button  className="btn btn-info  text-white">Donate</button></Link>
               ) : (
                 <div disabled="disabled" className="btn">
                   {status}

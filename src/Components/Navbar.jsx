@@ -7,7 +7,7 @@ const Navbar = () => {
     const links = <>
         <NavLink to={'/'}>Home</NavLink> 
         <NavLink to={'/campaigns'}>Campaigns</NavLink>
-        <NavLink to={'/donate'}>How to donate</NavLink>
+        <NavLink to={'/faq'}>How to donate</NavLink>
         <NavLink to={'/dashboard'}>Dashboard</NavLink>
     
     </>
