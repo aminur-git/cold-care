@@ -4,8 +4,21 @@ import Campaign from "../Components/CampaignCard";
 import CampaignCard from "../Components/CampaignCard";
 
 const CampaignsLayout = () => {
-  const { campaigns } = useContext(AuthContext);
+  const { campaigns, loading } = useContext(AuthContext);
   console.log(campaigns);
+
+
+  if (loading) {
+    return (
+      <div className="flex w-3/4 flex-col gap-4 m-10">
+        <div className="skeleton h-[400px] md:h-[500px] w-full"></div>
+        <div className="skeleton h-10 w-full  md:w-xl"></div>
+        <div className="skeleton h-24 w-full"></div>
+        <div className="skeleton h-6 w-[150px]"></div>
+      </div>
+    );
+  }
+
   return (
     <div>
         <h1 className="text-center text-xl md:text-3xl font-bold text-gray-600 dark:text-gray-200 my-10">Donation Campaigns</h1>

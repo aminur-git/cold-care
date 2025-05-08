@@ -28,7 +28,7 @@ const Banner = () => {
             <p className="mb-3 max-w-xs md:max-w-xl text-gray-200">
             "Your unused winter clothes can be someone's only shield against the cold. Donate today and help us bring warmth and dignity to those who need it most."
             </p>
-            <Link to={"/donate"} className="btn bg-[#067ba0] btn-wide border-none text-white"><span><BiSolidDonateHeart /></span> Donate</Link>
+            <Link to={"/campaigns"} className="btn bg-[#067ba0] btn-wide border-none text-white"><span><BiSolidDonateHeart /></span> Donate</Link>
           </div>
         </div>
       </div>

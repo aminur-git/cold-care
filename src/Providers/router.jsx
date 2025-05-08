@@ -6,6 +6,7 @@ import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import Campains from "../Pages/Campains";
 import Donate from "../Pages/Donate";
+import Faq from "../Pages/Faq";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "faq",
+    element: <Faq></Faq>
+  }
 ]);
 
 export default router;
