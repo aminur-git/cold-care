@@ -1,44 +1,73 @@
 import React, { createContext, useEffect, useState } from "react";
 import app from "../../firebase.init";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
+  const auth = getAuth(app);
   const [campaigns, setCampaigns] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+
+  const createUser = (email, password) => {
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  const login = (email, password) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+  };
 
   useEffect(() => {
     fetch("/campaigns.json")
       .then((res) => res.json())
       .then((data) => {
         setCampaigns(data);
-        setLoading(false);
+        // setLoading(false);
       })
       .catch((error) => {
         console.error("Failed to load campaigns:", error);
-        setLoading(false); // still stop loading even on error
+        // setLoading(false); // still stop loading even on error
       });
   }, []);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+      setLoading(false);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+  console.log(user);
+
+  const logOut = () => {
+    setLoading(true);
+    return signOut(auth);
+  };
+
+  console.log(loading)
 
   const authInfo = {
     campaigns,
     loading,
+    user,
+    setUser,
+    createUser,
+    logOut,
+    login,
   };
 
-  if (loading) {
-    return (
-      <div className="flex w-3/4 flex-col gap-4 m-10">
-        <div className="skeleton h-[400px] md:h-[500px] w-full"></div>
-        <div className="skeleton h-10 w-full  md:w-xl"></div>
-        <div className="skeleton h-24 w-full"></div>
-        <div className="skeleton h-6 w-[150px]"></div>
-      </div>
-    );
-  } else {
-    return (
-      <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
-    );
-  }
+  return (
+    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
+  );
 };
-
 export default AuthProvider;

@@ -7,6 +7,7 @@ import Register from "../Pages/Register";
 import Campains from "../Pages/Campains";
 import Donate from "../Pages/Donate";
 import Faq from "../Pages/Faq";
+import PrivateRoutes from "./PrivateRoutes";
 
 const router = createBrowserRouter([
   {
@@ -30,22 +31,27 @@ const router = createBrowserRouter([
   },
   {
     path: "campaigns",
-    element: <Campains></Campains>,
+    element: (
+      <PrivateRoutes>
+        <Campains></Campains>{" "}
+      </PrivateRoutes>
+    ),
   },
+
   {
-    path: "donate",
-    element: <Donate></Donate>,
-    children: [
-      {
-        path: "/donate/:id",
-        element: <Donate></Donate>, 
-      },
-    ],
+    path: "/donate/:id",
+    element: (
+      <PrivateRoutes>
+        {" "}
+        <Donate></Donate>
+      </PrivateRoutes>
+    ),
   },
+
   {
     path: "faq",
-    element: <Faq></Faq>
-  }
+    element: <Faq></Faq>,
+  },
 ]);
 
 export default router;

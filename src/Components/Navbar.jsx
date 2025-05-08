@@ -1,18 +1,20 @@
-import React from "react";
-import logo from "../assets/images/logo.png"
+import React, { useContext } from "react";
+import logo from "../assets/images/logo.png";
 import { Link, NavLink } from "react-router";
 import { CgProfile } from "react-icons/cg";
+import { AuthContext } from "../Providers/AuthProvider";
 
 const Navbar = () => {
-    const links = <>
-        <NavLink to={'/'}>Home</NavLink> 
-        <NavLink to={'/campaigns'}>Campaigns</NavLink>
-        <NavLink to={'/faq'}>How to donate</NavLink>
-        <NavLink to={'/dashboard'}>Dashboard</NavLink>
-    
+  const { user, logOut } = useContext(AuthContext);
+  const links = (
+    <>
+      <NavLink to={"/"}>Home</NavLink>
+      <NavLink to={"/campaigns"}>Campaigns</NavLink>
+      <NavLink to={"/faq"}>How to donate</NavLink>
+      <NavLink to={"/dashboard"}>Dashboard</NavLink>
     </>
-        
-    
+  );
+
   return (
     <div className="">
       <div className="navbar  text-white max-w-11/12 mx-auto ">
@@ -39,10 +41,12 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content rounded z-1 mt-3 w-52 p-2  bg-[#0c9ac6] "
             >
-             {links}
+              {links}
             </ul>
           </div>
-          <a href="/" className="z-10"><img src={logo} className="h-24  brightness-150 " alt="" /></a>
+          <a href="/" className="z-10">
+            <img src={logo} className="h-24  brightness-150 " alt="" />
+          </a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal md:space-x-8 sm:text-lg">
@@ -50,7 +54,26 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <Link to={"/auth/login"} className="btn btn-outline"><span><CgProfile className="text-xl"></CgProfile> </span> Login</Link>
+          {user ? (
+            <div className="">
+              <div className="flex flex-col items-center justify-center gap-2">
+                <div className="text-xs  flex gap-2 items-center">
+                  <CgProfile className="text-xl"></CgProfile>{" "}
+                  <span>{user.email}</span>
+                </div>
+                <button onClick={logOut} className="btn btn-outline btn-wide md:btn-wide">
+                  Log Out
+                </button>
+              </div>
+            </div>
+          ) : (
+            <Link to={"/auth/login"} className="btn btn-outline">
+              <span>
+                <CgProfile className="text-xl"></CgProfile>{" "}
+              </span>{" "}
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </div>

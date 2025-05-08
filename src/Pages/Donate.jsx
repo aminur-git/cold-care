@@ -5,11 +5,10 @@ import { AuthContext } from "../Providers/AuthProvider";
 import toast, { Toaster } from "react-hot-toast";
 
 const Donate = () => {
-  const { campaigns, loading } = useContext(AuthContext);
+  const { campaigns, loading, user } = useContext(AuthContext);
   const { id } = useParams();
   const currentId = parseInt(id);
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,12 +21,11 @@ const Donate = () => {
     const formData = { name, email, phone, donate };
     console.log(formData);
     toast.success("Thank you for your contribution!");
-    e.target.reset()
+    e.target.reset();
 
     setTimeout(() => {
       navigate("/");
-    }, 2500); 
-
+    }, 2500);
   };
 
   if (loading) {
@@ -42,7 +40,7 @@ const Donate = () => {
   }
 
   const campaign = campaigns.find((campaign) => campaign.id === currentId);
-  console.log(campaign)
+  console.log(campaign);
 
   if (!campaign) {
     return <div className="m-10 text-lg font-medium">Campaign not found.</div>;
@@ -69,8 +67,12 @@ const Donate = () => {
         </div>
         <div className="text-base-300 text-center px-2 pt-10 hero-overlay">
           <div className="space-y-3 ">
-            <h1 className="text-2xl dark:text-gray-100 md:text-4xl font-semibold">{title}</h1>
-            <p className="text-sm dark:text-gray-300 w-[340px] md:w-xl mx-auto">{description}</p>
+            <h1 className="text-2xl dark:text-gray-100 md:text-4xl font-semibold">
+              {title}
+            </h1>
+            <p className="text-sm dark:text-gray-300 w-[340px] md:w-xl mx-auto">
+              {description}
+            </p>
             <p className="text-sm text-gray-400 w-[340px] md:w-xl mx-auto">
               {contactInfo}
             </p>
@@ -85,7 +87,9 @@ const Donate = () => {
               className="flex flex-col gap-6 justify-around items-stretch  "
             >
               <div className="space-x-6 dark:text-gray-100 ">
-                <label className="dark:text-gray-100" htmlFor="">Name</label>
+                <label className="dark:text-gray-100" htmlFor="">
+                  Name
+                </label>
                 <input
                   className="bg-none px-2 py-1 border dark:text-gray-100  border-gray-500 "
                   type="text"
@@ -96,29 +100,38 @@ const Donate = () => {
                 />
               </div>
               <div className="space-x-6">
-                <label className="dark:text-gray-100" htmlFor="">Email</label>
+                <label className="dark:text-gray-100" htmlFor="">
+                  Email
+                </label>
                 <input
                   className="bg-none px-2 py-1 border dark:text-gray-100 border-gray-500 "
                   type="email"
                   name="email"
+                  defaultValue={user.email}
                   placeholder="your@mail.com"
                   id=""
                   required
                 />
               </div>
               <div className="space-x-6 dark:text-gray-100">
-                <label htmlFor="" className="dark:text-gray-100">Phone</label>
+                <label htmlFor="" className="dark:text-gray-100">
+                  Phone
+                </label>
                 <input
-                  className="bg-none px-2 py-1 border dark:text-gray-100 border-gray-500 "
-                  type="text"
-                  name="phone"
-                  placeholder="+880 19167 89018"
-                  id=""
+                  type="tel"
+                  className="validator tabular-nums bg-none px-2 py-1 border dark:text-gray-100 border-gray-500"
                   required
+                  placeholder="019167890**"
+                  pattern="[0-9]*"
+                  minlength="11"
+                  maxlength="11"
+                  title="Must be 11 digits"
                 />
               </div>
               <div className="space-x-6">
-                <label className="dark:text-gray-100" htmlFor="">Address</label>
+                <label className="dark:text-gray-100" htmlFor="">
+                  Address
+                </label>
                 <input
                   className="bg-none px-2 py-1 border dark:text-gray-100 border-gray-500 "
                   type="text"
@@ -129,7 +142,9 @@ const Donate = () => {
                 />
               </div>
               <div className="space-x-6">
-                <label htmlFor="" className="dark:text-gray-100">Willing to donate :</label>
+                <label htmlFor="" className="dark:text-gray-100">
+                  Willing to donate :
+                </label>
                 <input
                   className="bg-none px-2 py-1 border border-gray-500 dark:text-gray-100 "
                   type="text"
@@ -139,6 +154,7 @@ const Donate = () => {
                   required
                 />
               </div>
+              
               <button type="submit" className="btn btn-info w-[200px] mx-auto">
                 Donate
               </button>
