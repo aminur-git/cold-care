@@ -1,37 +1,51 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../Providers/AuthProvider";
 
 const Login = () => {
-  const {login} = useContext(AuthContext)
-  const [error, setError] = useState('')
-  const [success, setSuccess] = useState('')
-  const navigate = useNavigate()
+  const { login, resetPass } = useContext(AuthContext);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const navigate = useNavigate();
+  const emailRef = useRef();
 
-  
+  const handleResetPass = (e) => {
+    e.preventDefault();
+    setError("");
+    setSuccess("");
+
+    const email = emailRef.current?.value;
+    if (!email) {
+      setError("Please enter your email to reset password.");
+      return;
+    }
+
+    resetPass(email)
+      .then(() => {
+        setSuccess("Reset email sent! Please check your inbox.");
+      })
+      .catch((error) => setError(error.message));
+  };
+
   const handleSubmit = (e) => {
-    setError("")
-    setSuccess("")
+    setError("");
+    setSuccess("");
     e.preventDefault();
     const form = new FormData(e.target);
     const password = form.get("password");
     const email = form.get("email");
-    console.log(email, password)
+    console.log(email, password);
     login(email, password)
-    .then( ()=>{
-      setSuccess("Login successful"),
-      setTimeout(() => {
-        navigate("/campaigns");
-      }, 1500)
-    }
-      
-    )
-    .catch(error => {
-      setError(error.message)
-    })
-
-
-  }
+      .then(() => {
+        setSuccess("Login successful"),
+          setTimeout(() => {
+            navigate("/campaigns");
+          }, 1500);
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  };
 
   return (
     <div>
@@ -47,28 +61,45 @@ const Login = () => {
             <div className="card-body">
               <form onSubmit={handleSubmit} className="form space-y-3">
                 <label className="label">Email</label>
-                <input name="email" type="email" className="input" placeholder="Email" />
+                <input
+                  name="email"
+                  type="email"
+                  className="input validator"
+                  ref={emailRef}
+                  placeholder="Email"
+                />
                 <label className="label">Password</label>
                 <input
-                name="password"
+                  name="password"
                   type="password"
                   className="input"
                   placeholder="Password"
                 />
                 <div className="text-center">
-                  <a className="link link-hover">Forgot password?</a>
+                  <span onClick={handleResetPass} className="link link-hover">
+                    Forgot password?
+                  </span>
                 </div>
                 <div>
-                  {
-                    error && <p className="text-red-600">{error}</p>
-                  }
-                  {
-                    success && <p className="text-green-500">{success}</p>
-                  }
+                  {error && <p className="text-red-600">{error}</p>}
+                  {success && <p className="text-green-500">{success}</p>}
                 </div>
-                <button type="submit" className="btn btn-neutral mt-4 w-full mx-auto ">Login</button>
+                <button
+                  type="submit"
+                  className="btn btn-neutral mt-4 w-full mx-auto "
+                >
+                  Login
+                </button>
               </form>
-              <p className="text-center mt-3">Don't have an account? <Link to={'/auth/sign-up'} className="text-[#0c9ac6] font-semibold">Sign Up</Link> </p>
+              <p className="text-center mt-3">
+                Don't have an account?{" "}
+                <Link
+                  to={"/auth/sign-up"}
+                  className="text-[#0c9ac6] font-semibold"
+                >
+                  Sign Up
+                </Link>{" "}
+              </p>
             </div>
           </div>
         </div>
