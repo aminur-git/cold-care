@@ -6,6 +6,7 @@ import {
   onAuthStateChanged,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
 } from "firebase/auth";
 
@@ -17,13 +18,17 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
 
+
   const createUser = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
-  };
+    return (createUserWithEmailAndPassword(auth, email, password))
+    
+  }
 
   const resetPass = (email) => {
     return sendPasswordResetEmail(auth, email);
   };
+
+ 
 
   const login = (email, password) => {
     setLoading(true);
@@ -59,9 +64,10 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
-  console.log(loading);
+  // console.log(user.displayName);
 
   const authInfo = {
+    auth,
     campaigns,
     loading,
     user,

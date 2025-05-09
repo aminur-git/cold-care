@@ -6,7 +6,7 @@ import Campaigns from '../Components/CampaignCard';
 import CampaignsLayout from './CampaignsLayout';
 
 const HomeLayout = () => {
-    const {name} = useContext(AuthContext)
+
 
 
     return (

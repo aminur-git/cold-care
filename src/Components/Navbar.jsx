@@ -58,10 +58,21 @@ const Navbar = () => {
             <div className="">
               <div className="flex flex-col items-center justify-center gap-2">
                 <div className="text-xs  flex gap-2 items-center">
-                  <CgProfile className="text-xl"></CgProfile>{" "}
-                  <span>{user.email}</span>
+                  {user?.photoURL ? (
+                    <img
+                      src={user.photoURL}
+                      alt="Profile"
+                      className="w-10 h-10 rounded-full object-cover border-2 border-white"
+                    />
+                  ) : <CgProfile className="text-xl" ></CgProfile>
+                
+                }
+                  <span className="truncate ">{user.email}</span>
                 </div>
-                <button onClick={logOut} className="btn btn-outline btn-wide md:btn-wide">
+                <button
+                  onClick={logOut}
+                  className="btn btn-outline btn-xs btn-wide md:btn-wide md:btn-md"
+                >
                   Log Out
                 </button>
               </div>
